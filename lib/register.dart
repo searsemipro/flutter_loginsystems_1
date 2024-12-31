@@ -158,6 +158,7 @@ class _MyRegisterState extends State<MyRegister> {
                                         formKey.currentState!.save();
                                         print(
                                             "email = ${profile.email}, password = ${profile.password}");
+                                        formKey.currentState!.reset();
                                       } else {
                                         print("Form validation failed.");
                                       }
