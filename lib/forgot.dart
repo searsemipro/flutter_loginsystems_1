@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class MyForgotPassword extends StatefulWidget {
   const MyForgotPassword({Key? key}) : super(key: key);
@@ -12,7 +13,8 @@ class _MyForgotPasswordState extends State<MyForgotPassword> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(''), fit: BoxFit.cover),
+        image: DecorationImage(
+            image: AssetImage('assets/forgot.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -34,7 +36,7 @@ class _MyForgotPasswordState extends State<MyForgotPassword> {
               child: Text(
                 'Reset\nYour password',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 33,
                 ),
               ),
@@ -67,7 +69,9 @@ class _MyForgotPasswordState extends State<MyForgotPassword> {
                           ),
                           SizedBox(height: 20),
                           // New Password Field
-                          TextField(
+                          TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "กรุณากรอกข้อมูลให้ถูกต้อง"),
                             style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -81,7 +85,9 @@ class _MyForgotPasswordState extends State<MyForgotPassword> {
                           ),
                           SizedBox(height: 20),
                           // Confirm Password Field
-                          TextField(
+                          TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "กรุณากรอกข้อมูลให้ถูกต้อง"),
                             style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(

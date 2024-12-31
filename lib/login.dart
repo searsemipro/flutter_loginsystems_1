@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:form_field_validator/form_field_validator.dart';
+
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
@@ -8,6 +10,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +56,9 @@ class _MyLoginState extends State<MyLogin> {
                       margin: EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
-                          TextField(
+                          TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "กรุณากรอกข้อมูลให้ถูกต้อง"),
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
@@ -64,7 +70,9 @@ class _MyLoginState extends State<MyLogin> {
                             ),
                           ),
                           SizedBox(height: 30),
-                          TextField(
+                          TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "กรุณากรอกข้อมูลให้ถูกต้อง"),
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -94,9 +102,7 @@ class _MyLoginState extends State<MyLogin> {
                                     Color.fromARGB(255, 255, 65, 65),
                                 child: IconButton(
                                   color: Colors.white,
-                                  onPressed: () {
-                                    // Add login action here
-                                  },
+                                  onPressed: () {},
                                   icon: Icon(Icons.arrow_forward),
                                 ),
                               ),
