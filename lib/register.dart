@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loginsystems_1/profile.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class MyRegister extends StatefulWidget {
@@ -12,9 +13,54 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '');
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
+    //   return FutureBuilder(
+    //     future: firebase,
+    //     builder: (context, snapshot) {
+    //       if (snapshot.hasError) {
+    //         return Scaffold(
+    //           appBar: AppBar(
+    //             title: Text("Error"),
+    //           ),
+    //           body: Center(
+    //             child: Text("${snapshot.error}"),
+    //           ),
+    //         );
+    //       }
+
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return Scaffold(
+    //           body: Center(
+    //             child: CircularProgressIndicator(),
+    //           ),
+    //         );
+    //       }
+
+    //       if (snapshot.connectionState == ConnectionState.done) {
+    //         // กรณีข้อมูลโหลดสำเร็จ
+    //         return Scaffold(
+    //           appBar: AppBar(
+    //             title: Text("Success"),
+    //           ),
+    //           body: Center(
+    //             child: Text("Data loaded successfully!"),
+    //           ),
+    //         );
+    //       }
+
+    //       // กรณีสถานะอื่นๆ
+    //       return Scaffold(
+    //         body: Center(
+    //           child: Text("Unexpected state."),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:io'; // สำหรับเขียนไฟล์
+// import 'dart:io'; // สำหรับเขียนไฟล์
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -9,16 +9,16 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyHome> {
-  // ฟังก์ชันสำหรับบันทึกข้อมูลลงไฟล์
-  Future<void> saveToFile(String data) async {
-    final directory = Directory.systemTemp; // ใช้โฟลเดอร์ชั่วคราวสำหรับทดสอบ
-    final file = File('${directory.path}/user_data.txt');
+  // // ฟังก์ชันสำหรับบันทึกข้อมูลลงไฟล์
+  // Future<void> saveToFile(String data) async {
+  //   final directory = Directory.systemTemp; // ใช้โฟลเดอร์ชั่วคราวสำหรับทดสอบ
+  //   final file = File('${directory.path}/user_data.txt');
 
-    // เขียนข้อมูลลงไฟล์
-    await file.writeAsString(data, mode: FileMode.append);
-    debugPrint('Data saved: $data');
-    debugPrint('File location: ${file.path}');
-  }
+  //   // เขียนข้อมูลลงไฟล์
+  //   await file.writeAsString(data, mode: FileMode.append);
+  //   debugPrint('Data saved: $data');
+  //   debugPrint('File location: ${file.path}');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +44,8 @@ class _MyWidgetState extends State<MyHome> {
                       ),
                     ),
                     onPressed: () {
-                      // บันทึกข้อมูลเมื่อกดปุ่ม
-                      saveToFile('User signed up at ${DateTime.now()}\n');
+                      // // บันทึกข้อมูลเมื่อกดปุ่ม
+                      // saveToFile('User signed up at ${DateTime.now()}\n');
                       Navigator.pushNamed(context, 'register');
                     },
                     style: ElevatedButton.styleFrom(
@@ -67,7 +67,7 @@ class _MyWidgetState extends State<MyHome> {
                     ),
                     onPressed: () {
                       // บันทึกข้อมูลเมื่อกดปุ่ม
-                      saveToFile('User logged in at ${DateTime.now()}\n');
+                      // saveToFile('User logged in at ${DateTime.now()}\n');
                       Navigator.pushNamed(context, 'login');
                     },
                     style: ElevatedButton.styleFrom(
