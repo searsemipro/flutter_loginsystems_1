@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_loginsystems_1/home.dart';
 import 'package:flutter_loginsystems_1/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -194,6 +195,11 @@ class _MyRegisterState extends State<MyRegister> {
                                                   password: profile.password,
                                                 );
                                                 formKey.currentState!.reset();
+                                                Navigator.pushReplacement(
+                                                    context, MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return MyHome();
+                                                }));
                                                 Fluttertoast.showToast(
                                                   msg:
                                                       "Account created successfully!",
