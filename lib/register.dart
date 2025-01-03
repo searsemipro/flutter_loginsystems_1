@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loginsystems_1/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -180,16 +181,21 @@ class _MyRegisterState extends State<MyRegister> {
                                         backgroundColor: Color(0xff4c505b),
                                         child: IconButton(
                                           color: Colors.white,
-                                          onPressed: () {
+                                          onPressed: () async {
                                             if (formKey.currentState != null &&
                                                 formKey.currentState!
                                                     .validate()) {
                                               formKey.currentState!.save();
-                                              print(
-                                                  "email = ${profile.email}, password = ${profile.password}");
-                                              formKey.currentState!.reset();
-                                            } else {
-                                              print("Form validation failed.");
+                                              try {
+                                                await FirebaseAuth.instance
+                                                    .createUserWithEmailAndPassword(
+                                                        email: profile.email,
+                                                        password:
+                                                            profile.password);
+                                                formKey.currentState!.reset();
+                                              } on FirebaseAuthException catch (e) {
+                                                print(e.message);
+                                              }
                                             }
                                           },
                                           icon: Icon(Icons.arrow_forward),
