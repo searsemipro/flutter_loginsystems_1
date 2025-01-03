@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loginsystems_1/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class MyRegister extends StatefulWidget {
@@ -189,13 +190,50 @@ class _MyRegisterState extends State<MyRegister> {
                                               try {
                                                 await FirebaseAuth.instance
                                                     .createUserWithEmailAndPassword(
-                                                        email: profile.email,
-                                                        password:
-                                                            profile.password);
+                                                  email: profile.email,
+                                                  password: profile.password,
+                                                );
                                                 formKey.currentState!.reset();
+                                                Fluttertoast.showToast(
+                                                  msg:
+                                                      "Account created successfully!",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 129, 129, 129),
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
                                               } on FirebaseAuthException catch (e) {
-                                                print(e.message);
+                                                String errorMessage = e
+                                                        .message ??
+                                                    "An unknown error occurred.";
+                                                Fluttertoast.showToast(
+                                                  msg: errorMessage,
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 129, 129, 129),
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
                                               }
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                msg:
+                                                    "Please fill in all fields correctly.",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 129, 129, 129),
+                                                textColor: Colors.white,
+                                                fontSize: 16.0,
+                                              );
                                             }
                                           },
                                           icon: Icon(Icons.arrow_forward),
