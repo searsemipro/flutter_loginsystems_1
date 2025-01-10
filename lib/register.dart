@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loginsystems_1/home.dart';
 import 'package:flutter_loginsystems_1/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class MyRegister extends StatefulWidget {
@@ -17,6 +16,7 @@ class _MyRegisterState extends State<MyRegister> {
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '');
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  bool isLoading = false; // เพิ่มตัวแปร isLoading
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,6 @@ class _MyRegisterState extends State<MyRegister> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          // กรณีข้อมูลโหลดสำเร็จ
           return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -188,6 +187,12 @@ class _MyRegisterState extends State<MyRegister> {
                                                 formKey.currentState!
                                                     .validate()) {
                                               formKey.currentState!.save();
+
+                                              setState(() {
+                                                isLoading =
+                                                    true; // แสดง loading
+                                              });
+
                                               try {
                                                 await FirebaseAuth.instance
                                                     .createUserWithEmailAndPassword(
@@ -200,45 +205,43 @@ class _MyRegisterState extends State<MyRegister> {
                                                         builder: (context) {
                                                   return MyHome();
                                                 }));
-                                                Fluttertoast.showToast(
-                                                  msg:
-                                                      "Account created successfully!",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  backgroundColor:
-                                                      const Color.fromARGB(
-                                                          255, 129, 129, 129),
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
+
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        "Account created successfully!"),
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                  ),
                                                 );
                                               } on FirebaseAuthException catch (e) {
                                                 String errorMessage = e
                                                         .message ??
                                                     "An unknown error occurred.";
-                                                Fluttertoast.showToast(
-                                                  msg: errorMessage,
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  backgroundColor:
-                                                      const Color.fromARGB(
-                                                          255, 129, 129, 129),
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
+
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(errorMessage),
+                                                    backgroundColor: Colors.red,
+                                                  ),
                                                 );
+                                              } finally {
+                                                setState(() {
+                                                  isLoading =
+                                                      false; // ซ่อน loading
+                                                });
                                               }
                                             } else {
-                                              Fluttertoast.showToast(
-                                                msg:
-                                                    "Please fill in all fields correctly.",
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                backgroundColor:
-                                                    const Color.fromARGB(
-                                                        255, 129, 129, 129),
-                                                textColor: Colors.white,
-                                                fontSize: 16.0,
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                      "Please fill in all fields correctly."),
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                ),
                                               );
                                             }
                                           },
@@ -266,7 +269,11 @@ class _MyRegisterState extends State<MyRegister> {
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
+                                  if (isLoading) // แสดง CircularProgressIndicator เมื่อกำลังโหลด
+                                    Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                 ],
                               ),
                             ),
@@ -281,7 +288,6 @@ class _MyRegisterState extends State<MyRegister> {
           );
         }
 
-        // กรณีสถานะอื่นๆ
         return Scaffold(
           body: Center(
             child: Text("Unexpected state."),

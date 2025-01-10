@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_loginsystems_1/userinfo.dart';
 import 'forgot.dart';
 import 'home.dart';
 import 'login.dart';
@@ -30,6 +31,7 @@ void main() async {
       'login': (context) => MyLogin(),
       'forgot': (context) => MyForgotPassword(),
       'home': (context) => MyHome(),
+      'userinfo': (context) => UserProfile(),
     },
   ));
 }
