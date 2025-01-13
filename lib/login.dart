@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_loginsystems_1/userinfo.dart';
+import 'package:flutter_loginsystems_1/menupage.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class MyLogin extends StatefulWidget {
@@ -166,7 +166,7 @@ class _MyLoginState extends State<MyLogin> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            UserProfile()),
+                                                            MyMenuPages()),
                                                   );
                                                 } on FirebaseAuthException catch (e) {
                                                   String errorMessage;
